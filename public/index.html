@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>抢金币大乱斗</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="home-view" class="home-view view active">
+        <div class="home-topbar">
+          <div class="brand-mark"><span class="brand-dot"></span> COIN BATTLE / 01</div>
+          <div class="topbar-note">REAL-TIME MINI GAME</div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">今晚谁是金币王？</p>
+            <h1>抢金币<br /><em>大乱斗</em></h1>
+            <p class="hero-description">和朋友冲进同一张地图，边跑边抢。三分钟一局，分高的人把胜利带走。</p>
+            <div class="feature-row">
+              <span>2—6 PLAYERS</span><span>3 MIN ROUND</span><span>NO DOWNLOAD</span>
+            </div>
+          </div>
+
+          <div class="join-card">
+            <div class="card-label">先报上名字</div>
+            <input id="home-name" maxlength="12" placeholder="比如：薯条大王" autocomplete="nickname" />
+            <button id="create-button" class="primary-button">创建房间 <span>↗</span></button>
+            <div class="divider"><span>或者加入朋友的房间</span></div>
+            <div class="join-row">
+              <input id="room-code" maxlength="4" placeholder="房间号" autocomplete="off" />
+              <button id="join-button" class="secondary-button">加入</button>
+            </div>
+            <p id="home-error" class="error-text"></p>
+          </div>
+        </div>
+
+        <div class="home-footer">
+          <div><span class="footer-number">01</span><span>先创建房间</span></div>
+          <div><span class="footer-number">02</span><span>把房间号发给朋友</span></div>
+          <div><span class="footer-number">03</span><span>开抢</span></div>
+        </div>
+      </section>
+
+      <section id="game-view" class="game-view view">
+        <header class="game-header">
+          <div class="brand-mark"><span class="brand-dot"></span> COIN BATTLE / 01</div>
+          <div class="room-pill">ROOM <strong id="room-code-display">----</strong><button id="copy-room" title="复制房间号">复制</button></div>
+          <button id="back-button" class="text-button">退出房间</button>
+        </header>
+
+        <div class="game-layout">
+          <div class="arena-wrap">
+            <div class="arena-topline">
+              <div>
+                <p class="eyebrow">当前战场</p>
+                <h2 id="arena-title">准备开抢</h2>
+              </div>
+              <div class="timer-block"><span>剩余时间</span><strong id="timer">03:00</strong></div>
+            </div>
+            <div class="canvas-frame">
+              <canvas id="game-canvas" width="1600" height="900"></canvas>
+              <div id="arena-overlay" class="arena-overlay">
+                <div class="overlay-icon">✦</div>
+                <h3 id="overlay-title">等朋友进场</h3>
+                <p id="overlay-copy">房间号已经准备好，发给朋友吧。</p>
+                <button id="start-button" class="primary-button hidden">开始这一局 <span>→</span></button>
+              </div>
+            </div>
+            <div class="controls-hint"><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span> 移动 <span class="hint-separator">·</span> 撞到金币就能得分</div>
+            <div class="touch-controls" aria-label="移动控制">
+              <button data-key="up">▲</button>
+              <div><button data-key="left">◀</button><button data-key="down">▼</button><button data-key="right">▶</button></div>
+            </div>
+          </div>
+
+          <aside class="score-panel">
+            <div class="score-heading"><div><p class="eyebrow">本局排名</p><h2>排行榜</h2></div><span id="player-count">0 / 6</span></div>
+            <div id="score-list" class="score-list"></div>
+            <div class="side-tip"><span class="tip-icon">✳</span><div><strong>小诀窍</strong><p>金币会不断出现。金色大金币价值 3 分，看到就别放过。</p></div></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
